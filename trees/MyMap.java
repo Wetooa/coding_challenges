@@ -1,8 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * BetterBST
  */
-public class MyMap<K extends Comparable<K>, V extends Comparable<V>> {
+public class MyMap<K extends Comparable<K>, V> {
 
   class Node {
     public K key;
@@ -128,11 +130,11 @@ public class MyMap<K extends Comparable<K>, V extends Comparable<V>> {
     t.timeFunction(
         () -> {
           int n = 10000;
-          MyMap<Integer, Integer> map = new MyMap<>();
+          MyMap<String, Integer> map = new MyMap<>();
 
-          for (int i = 0; i < n; i++) {
-            map.insert(i, i);
-          }
+          // for (int i = 0; i < n; i++) {
+          // map.insert(i, i);
+          // }
 
           // for (int i = 0; i < n; ++i) {
           // Integer key = (int) (Math.random() * 1000);

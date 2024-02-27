@@ -12,7 +12,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 NEIGHBORS = ((0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (-1, -1), (-1, 1), (1, -1))
 
-grid = [[int(random.randint(0, 9) < 7) for _ in range(COLS)] for _ in range(ROWS)]
+grid = [[int(random.randint(0, 100) < 60) for _ in range(COLS)] for _ in range(ROWS)]
 
 
 def draw_grid():

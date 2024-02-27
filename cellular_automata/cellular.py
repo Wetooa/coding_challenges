@@ -14,7 +14,7 @@ NEIGHBORS = ((0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (-1, -1), (-1, 1), (1, -1
 grid = [[0] * COLS for _ in range(ROWS)]
 grid[0][-1] = 1
 
-rule = [0, 1, 1, 1, 0, 1, 1, 0]
+rule = [0, 1, 1, 0, 0, 1, 1, 0]
 
 
 def draw_grid():
@@ -48,6 +48,7 @@ def update_grid():
 
 
 running = True
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("GAME OF LIFE")
 current_row = 1

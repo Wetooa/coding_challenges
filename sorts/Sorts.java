@@ -1,25 +1,28 @@
-
-package Counting;
-
 import java.util.Arrays;
-import java.util.SortedMap;
 
 /**
- * CountingSort
+ * Sorts
+ *
+ * A sorting Class
+ * sorts all kinds of shit
  */
-public class CountingSort {
+public class Sorts {
 
   public static void main(String[] args) {
 
-    int[] arr = { 4, 6, 5, 7, 2, 1, 2 };
-    int[] sorted_arr = sort(arr);
-
-    System.out.println(Arrays.toString(arr));
-    System.out.println(Arrays.toString(sorted_arr));
+    Sorts sort = new Sorts();
 
   }
 
-  public static int[] sort(int[] arr) {
+  public void quickSort(int[] arr) {
+
+  }
+
+  private void quickSort(int[] arr, int left, int right) {
+
+  }
+
+  public void countingSort(int[] arr) {
 
     // Get maximum element
     int max_element = Arrays.stream(arr).max().orElse(0);
@@ -36,14 +39,13 @@ public class CountingSort {
     }
 
     // Create sorted arr
-    int[] sorted_arr = new int[arr.length];
-    Arrays.fill(sorted_arr, -1);
+    int[] copy = arr.clone();
 
-    for (int num : arr) {
+    for (int num : copy) {
       if (freq[num] > 0)
-        sorted_arr[--freq[num]] = num;
+        arr[--freq[num]] = num;
     }
 
-    return sorted_arr;
   }
+
 }
