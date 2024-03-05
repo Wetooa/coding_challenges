@@ -3,9 +3,9 @@ import java.util.Arrays;
 public class Main {
 
   public static void main(String[] args) {
-    checkSpeeds(new QuickSort());
-    // checkSpeeds(new BubbleSort());
+    checkSpeeds(new BubbleSort());
     checkSpeeds(new CountingSort());
+    checkSpeeds(new QuickSort());
     checkSpeeds(new MergeSort());
   }
 
@@ -17,19 +17,23 @@ public class Main {
     long endTime = System.currentTimeMillis();
 
     System.out.println(
-        sort.getClass() + " Runtime: " + (endTime - startTime) + "ms");
+      sort.getClass().getSimpleName() +
+      " Runtime: " +
+      (endTime - startTime) +
+      "ms"
+    );
 
     checkSorted(arr);
   }
 
   public static int[] createUnsortedArray() {
-    int n = 1000000;
+    int n = 10000;
     int upper_bound = 10;
 
     return Arrays
-        .stream(new int[n])
-        .map(num -> (int) (Math.random() * upper_bound))
-        .toArray();
+      .stream(new int[n])
+      .map(num -> (int) (Math.random() * upper_bound))
+      .toArray();
   }
 
   public static void checkSorted(int[] arr) {
