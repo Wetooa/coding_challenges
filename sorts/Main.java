@@ -17,11 +17,10 @@ public class Main {
     long endTime = System.currentTimeMillis();
 
     System.out.println(
-      sort.getClass().getSimpleName() +
-      " Runtime: " +
-      (endTime - startTime) +
-      "ms"
-    );
+        sort.getClass().getSimpleName() +
+            " Runtime: " +
+            (endTime - startTime) +
+            "ms");
 
     checkSorted(arr);
   }
@@ -31,9 +30,9 @@ public class Main {
     int upper_bound = 10;
 
     return Arrays
-      .stream(new int[n])
-      .map(num -> (int) (Math.random() * upper_bound))
-      .toArray();
+        .stream(new int[n])
+        .map(num -> (int) (Math.random() * upper_bound))
+        .toArray();
   }
 
   public static void checkSorted(int[] arr) {

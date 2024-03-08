@@ -75,7 +75,6 @@ public class BingoGame implements Runnable {
     patternCheckers.forEach((patternChecker) -> patternChecker.interrupt());
 
     sc.close();
-
   }
 
 }

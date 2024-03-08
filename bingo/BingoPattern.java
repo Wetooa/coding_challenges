@@ -12,6 +12,7 @@ public abstract class BingoPattern implements Runnable {
 
   public BingoPattern(BingoCard card) {
     this.card = card;
+    this.bc = new ArrayList<>();
   }
 
   @Override
@@ -25,6 +26,7 @@ public abstract class BingoPattern implements Runnable {
         thrd.join();
       } catch (InterruptedException e) {
         System.out.println(String.format("Card %d Loses..", card.id));
+        thrds.forEach((t) -> t.interrupt());
         return;
       }
     }
@@ -39,9 +41,33 @@ public abstract class BingoPattern implements Runnable {
 
     public BingoPatternPlus(BingoCard card) {
       super(card);
-      bc = new ArrayList<>();
       bc.add(new BingoChecker.BingoCheckerRow(card, 2));
       bc.add(new BingoChecker.BingoCheckerCol(card, 2));
+    }
+
+  }
+
+  public static class BingoPatternHash extends BingoPattern {
+
+    public BingoPatternHash(BingoCard card) {
+      super(card);
+      bc.add(new BingoChecker.BingoCheckerRow(card, 1));
+      bc.add(new BingoChecker.BingoCheckerRow(card, 3));
+      bc.add(new BingoChecker.BingoCheckerCol(card, 1));
+      bc.add(new BingoChecker.BingoCheckerCol(card, 3));
+    }
+
+  }
+
+  public static class BingoPatternE extends BingoPattern {
+
+    public BingoPatternE(BingoCard card) {
+      super(card);
+      bc.add(new BingoChecker.BingoCheckerRow(card, 0));
+      bc.add(new BingoChecker.BingoCheckerRow(card, 2));
+      bc.add(new BingoChecker.BingoCheckerRow(card, 4));
+      bc.add(new BingoChecker.BingoCheckerCol(card, 1));
+
     }
 
   }

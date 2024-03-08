@@ -5,7 +5,7 @@
 public class Main {
 
   public static void main(String[] args) {
-    BingoGame bg = new BingoGame();
-    bg.run();
+    Thread bg = new Thread(new BingoGame());
+    bg.start();
   }
 }

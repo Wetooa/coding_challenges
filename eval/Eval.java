@@ -10,7 +10,6 @@ import java.util.regex.*;
 public class Eval {
   List<Character> operationsList = new ArrayList<>(Arrays.asList(new Character[] { '+', '-', '*', '/' }));
   String isNumeric = "^\\d+$";
-  Pattern isOperation = Pattern.compile("[+\\-\\*/]");
 
   private int getParenthesisPair(String equation, int index) {
     int counter = 0;
@@ -54,7 +53,7 @@ public class Eval {
       } else if (Character.isDigit(s)) {
         number = number * 10 + s - '0';
       } else {
-        // Error
+        // Error lol
       }
     }
     numbers.add(number);

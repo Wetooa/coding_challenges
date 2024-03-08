@@ -21,7 +21,6 @@ public class BingoCard {
     }
 
     nums[2][2] = 0;
-
   }
 
   @Override

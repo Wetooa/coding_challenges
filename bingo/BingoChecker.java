@@ -27,12 +27,12 @@ public abstract class BingoChecker implements Runnable {
             try {
               BingoGame.result.wait();
             } catch (InterruptedException e) {
+              return;
             }
           }
         }
       }
     }
-
   }
 
   public static class BingoCheckerCol extends BingoChecker {
@@ -52,6 +52,7 @@ public abstract class BingoChecker implements Runnable {
             try {
               BingoGame.result.wait();
             } catch (InterruptedException e) {
+              return;
             }
           }
         }
