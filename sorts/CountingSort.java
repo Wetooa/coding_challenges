@@ -37,8 +37,6 @@ public class CountingSort extends Sort {
     int min_element = Arrays.stream(arr).min().orElse(0);
     int offset = -min_element;
 
-    System.out.println(max_element + " " + min_element);
-
     // Get frequency table
     int[] freq = new int[offset + max_element + 1];
     for (int num : arr) {
