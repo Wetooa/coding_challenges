@@ -33,7 +33,6 @@ public abstract class BingoPattern implements Runnable {
 
     System.out.println(String.format("Card %d Wins!!!", card.id));
     System.out.println(card);
-
     BingoGame.isBingo = true;
   }
 
@@ -56,7 +55,6 @@ public abstract class BingoPattern implements Runnable {
       bc.add(new BingoChecker.BingoCheckerCol(card, 1));
       bc.add(new BingoChecker.BingoCheckerCol(card, 3));
     }
-
   }
 
   public static class BingoPatternE extends BingoPattern {
@@ -68,6 +66,15 @@ public abstract class BingoPattern implements Runnable {
       bc.add(new BingoChecker.BingoCheckerRow(card, 4));
       bc.add(new BingoChecker.BingoCheckerCol(card, 1));
 
+    }
+  }
+
+  public static class BingoPatternJ extends BingoPattern {
+
+    public BingoPatternJ(BingoCard card) {
+      super(card);
+      bc.add(new BingoChecker.BingoCheckerRow(card, 4));
+      bc.add(new BingoChecker.BingoCheckerCol(card, 4));
     }
 
   }
