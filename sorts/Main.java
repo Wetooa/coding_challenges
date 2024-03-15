@@ -26,13 +26,13 @@ public class Main {
 
   public static int[] createUnsortedArray() {
     // number of elements to sort
-    int n = 100;
+    int n = 10;
 
     // inclusive
-    int lower_bound = -100;
+    int lower_bound = 0;
 
     // exclusive
-    int upper_bound = 100;
+    int upper_bound = 10;
 
     return Arrays
         .stream(new int[n])
@@ -41,7 +41,6 @@ public class Main {
   }
 
   public static void checkSorted(int[] arr) {
-    System.out.println(Arrays.toString(arr));
     for (int i = 1; i < arr.length; ++i) {
       assert (arr[i - 1] <= arr[i]);
     }
