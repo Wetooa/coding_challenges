@@ -8,7 +8,6 @@ public class CountingSort extends Sort {
     Scanner sc = new Scanner(System.in);
 
     System.out.println(" --- Unsorted array: " + Arrays.toString(arr) + " --- \n");
-
     System.err.print(" >>> 1. Getting maximum element <<<");
     sc.nextLine();
 
@@ -31,10 +30,8 @@ public class CountingSort extends Sort {
     System.err.print(" >>> 3. Creating the prefix summed array <<< ");
     sc.nextLine();
 
-    int running_sum = 0;
-    for (int i = 0; i <= max_element; ++i) {
-      running_sum += freq[i];
-      freq[i] = running_sum;
+    for (int i = 1; i <= max_element; ++i) {
+      freq[i] += freq[i - 1];
     }
 
     System.out.println("Prefix sums array: " + Arrays.toString(freq));
@@ -45,13 +42,13 @@ public class CountingSort extends Sort {
 
     int[] clone = arr.clone();
     for (int num : clone) {
-      if (freq[num] > 0)
-        arr[--freq[num]] = num;
+      arr[--freq[num]] = num;
     }
 
     System.out.println("Sorted array: " + Arrays.toString(arr));
 
     sc.close();
+
   }
 
   public void sortWithNegWithGuide(int[] arr) {
@@ -85,10 +82,8 @@ public class CountingSort extends Sort {
     System.out.print(" >>> 3. Creating the prefix summed array <<< ");
     sc.nextLine();
 
-    int running_sum = 0;
-    for (int i = 0; i <= offset + max_element; ++i) {
-      running_sum += freq[i];
-      freq[i] = running_sum;
+    for (int i = 1; i <= offset + max_element; ++i) {
+      freq[i] += freq[i - 1];
     }
 
     System.out.println("Prefix sums array: " + Arrays.toString(freq));
@@ -99,13 +94,13 @@ public class CountingSort extends Sort {
 
     int[] clone = arr.clone();
     for (int num : clone) {
-      if (freq[num + offset] > 0)
-        arr[--freq[num + offset]] = num;
+      arr[--freq[num + offset]] = num;
     }
 
     System.out.println("Sorted array: " + Arrays.toString(arr));
 
     sc.close();
+
   }
 
   public void sortNoNeg(int[] arr) {
@@ -119,17 +114,14 @@ public class CountingSort extends Sort {
     }
 
     // Create prefix sums table
-    int running_sum = 0;
-    for (int i = 0; i <= max_element; ++i) {
-      running_sum += freq[i];
-      freq[i] = running_sum;
+    for (int i = 1; i <= max_element; ++i) {
+      freq[i] += freq[i - 1];
     }
 
     // Sort array
     int[] clone = arr.clone();
     for (int num : clone) {
-      if (freq[num] > 0)
-        arr[--freq[num]] = num;
+      arr[--freq[num]] = num;
     }
   }
 
@@ -148,17 +140,14 @@ public class CountingSort extends Sort {
     }
 
     // Create prefix sums table
-    int running_sum = 0;
-    for (int i = 0; i <= offset + max_element; ++i) {
-      running_sum += freq[i];
-      freq[i] = running_sum;
+    for (int i = 1; i <= offset + max_element; ++i) {
+      freq[i] += freq[i - 1];
     }
 
     // Sort array
     int[] clone = arr.clone();
     for (int num : clone) {
-      if (freq[num + offset] > 0)
-        arr[--freq[num + offset]] = num;
+      arr[--freq[num + offset]] = num;
     }
   }
 
