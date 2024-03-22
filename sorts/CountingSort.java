@@ -41,14 +41,12 @@ public class CountingSort extends Sort {
     sc.nextLine();
 
     int[] clone = arr.clone();
-    for (int num : clone) {
-      arr[--freq[num]] = num;
+    for (int i = clone.length - 1; i > -1; i--) {
+      arr[--freq[clone[i]]] = clone[i];
     }
 
     System.out.println("Sorted array: " + Arrays.toString(arr));
-
     sc.close();
-
   }
 
   public void sortWithNegWithGuide(int[] arr) {
@@ -93,8 +91,8 @@ public class CountingSort extends Sort {
     sc.nextLine();
 
     int[] clone = arr.clone();
-    for (int num : clone) {
-      arr[--freq[num + offset]] = num;
+    for (int i = clone.length - 1; i > -1; i--) {
+      arr[--freq[clone[i]] + offset] = clone[i];
     }
 
     System.out.println("Sorted array: " + Arrays.toString(arr));
@@ -120,8 +118,8 @@ public class CountingSort extends Sort {
 
     // Sort array
     int[] clone = arr.clone();
-    for (int num : clone) {
-      arr[--freq[num]] = num;
+    for (int i = clone.length - 1; i > -1; i--) {
+      arr[--freq[clone[i]]] = clone[i];
     }
   }
 
@@ -146,13 +144,13 @@ public class CountingSort extends Sort {
 
     // Sort array
     int[] clone = arr.clone();
-    for (int num : clone) {
-      arr[--freq[num + offset]] = num;
+    for (int i = clone.length - 1; i > -1; i--) {
+      arr[--freq[clone[i] + offset]] = clone[i];
     }
   }
 
   @Override
   public void sort(int[] arr) {
-    sortNoNegWithGuide(arr);
+    sortWithNeg(arr);
   }
 }

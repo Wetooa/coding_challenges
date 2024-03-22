@@ -3,13 +3,13 @@ import java.util.Arrays;
 public class Main {
 
   public static void main(String[] args) {
-    checkSpeeds(new CountingSort());
-    // checkSpeeds(new BubbleSort());
-    // checkSpeeds(new QuickSort());
-    // checkSpeeds(new MergeSort());
+    checkSort(new CountingSort());
+    // checkSort(new BubbleSort());
+    // checkSort(new QuickSort());
+    // checkSort(new MergeSort());
   }
 
-  private static void checkSpeeds(Sort sort) {
+  private static void checkSort(Sort sort) {
     int[] arr = createUnsortedArray();
 
     long startTime = System.currentTimeMillis();
@@ -21,15 +21,19 @@ public class Main {
             (endTime - startTime) +
             "ms");
 
-    checkSorted(arr);
+    try {
+      checkSorted(arr);
+    } catch (AssertionError e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   public static int[] createUnsortedArray() {
     // number of elements to sort
-    int n = 10;
+    int n = 10000;
 
     // inclusive
-    int lower_bound = 0;
+    int lower_bound = -10;
 
     // exclusive
     int upper_bound = 10;
@@ -42,7 +46,8 @@ public class Main {
 
   public static void checkSorted(int[] arr) {
     for (int i = 1; i < arr.length; ++i) {
-      assert (arr[i - 1] <= arr[i]);
+      assert arr[i - 1] <= arr[i] : "Unsorted!!!!";
     }
   }
+
 }
