@@ -92,7 +92,7 @@ public class CountingSort extends Sort {
 
     int[] clone = arr.clone();
     for (int i = clone.length - 1; i > -1; i--) {
-      arr[--freq[clone[i]] + offset] = clone[i];
+      arr[--freq[clone[i] + offset]] = clone[i];
     }
 
     System.out.println("Sorted array: " + Arrays.toString(arr));

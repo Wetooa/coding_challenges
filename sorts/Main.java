@@ -30,13 +30,13 @@ public class Main {
 
   public static int[] createUnsortedArray() {
     // number of elements to sort
-    int n = 10000;
+    int n = 1000000;
 
     // inclusive
-    int lower_bound = -10;
+    int lower_bound = -100;
 
     // exclusive
-    int upper_bound = 10;
+    int upper_bound = 100;
 
     return Arrays
         .stream(new int[n])
