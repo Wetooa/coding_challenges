@@ -1,11 +1,13 @@
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
   public static void main(String[] args) {
-    checkSort(new CountingSort());
+    // checkSort(new CountingSort());
     // checkSort(new BubbleSort());
-    // checkSort(new QuickSort());
+    checkSort(new QuickSort());
     // checkSort(new MergeSort());
   }
 
@@ -30,7 +32,7 @@ public class Main {
 
   public static int[] createUnsortedArray() {
     // number of elements to sort
-    int n = 1000000;
+    int n = 100000;
 
     // inclusive
     int lower_bound = -100;
@@ -42,6 +44,13 @@ public class Main {
         .stream(new int[n])
         .map(num -> (int) (Math.random() * (upper_bound - lower_bound) + lower_bound))
         .toArray();
+  }
+
+  public static int[] createSortedArray() {
+    // number of elements to sort
+    int n = 1000000;
+
+    return IntStream.rangeClosed(0, n).toArray();
   }
 
   public static void checkSorted(int[] arr) {

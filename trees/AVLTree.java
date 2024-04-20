@@ -33,7 +33,6 @@ class AVLTree<K extends Comparable<K>, V> {
     }
 
     public AVLNode rightRotate() {
-
       AVLNode x = this.left;
       AVLNode T2 = x.right;
 
@@ -47,7 +46,6 @@ class AVLTree<K extends Comparable<K>, V> {
     }
 
     public AVLNode leftRotate() {
-
       AVLNode x = this.right;
       AVLNode T2 = x.left;
 
@@ -81,7 +79,7 @@ class AVLTree<K extends Comparable<K>, V> {
 
     t.timeFunction(() -> {
 
-      int n = 100;
+      int n = 5;
       AVLTree<Integer, Integer> map = new AVLTree<>();
 
       // map.upsert(10, 10);
@@ -105,7 +103,7 @@ class AVLTree<K extends Comparable<K>, V> {
         map.upsert(i, i);
       }
 
-      for (int i = 0; i < n; i += n / 100) {
+      for (int i = 0; i < n; i++) {
         System.out.println("Element at key " + i + ": " + map.get(i));
       }
 
@@ -231,7 +229,7 @@ class AVLTree<K extends Comparable<K>, V> {
 
         AVLNode successor = curr.right;
         while (successor.left != null)
-          successor = successor.right;
+          successor = successor.left;
 
         curr.key = successor.key;
         curr.val = successor.val;
