@@ -1,6 +1,7 @@
 #include "binarytree.h"
 #include <cstdlib>
 #include <iostream>
+
 using namespace std;
 
 class MyBinaryTree : public BinaryTree {
@@ -115,17 +116,24 @@ public:
     //    x <- curr
   void zigleft(node *curr) {
     node *x = curr;
-    node *y = curr->parent;
+    node *y = x->parent;
+    node *z = y->parent;
 
-    node *a = x->left;
-
-    if (y == y->parent->left)
-      y->parent->left = x;
+    if (z == NULL)
+      root = x;
+    else if (y == z->left)
+      z->left = x;
     else
-      y->parent->right = x;
+      z->right = x;
+
+    x->parent = z;
+    y->parent = x;
+
+    if (x->left)
+      x->left->parent = y;
+    y->right = x->left;
 
     x->left = y;
-    y->right = a;
   }
 
   // TODO implement zigright
@@ -137,17 +145,24 @@ public:
   // x <- curr
   void zigright(node *curr) {
     node *x = curr;
-    node *y = curr->parent;
+    node *y = x->parent;
+    node *z = y->parent;
 
-    node *a = x->right;
-
-    if (y == y->parent->left)
-      y->parent->left = x;
+    if (z == NULL)
+      root = x;
+    else if (y == z->left)
+      z->left = x;
     else
-      y->parent->right = x;
+      z->right = x;
+
+    y->parent = x;
+    x->parent = z;
+
+    if (x->right)
+      x->right->parent = y;
+    y->left = x->right;
 
     x->right = y;
-    y->left = a;
   }
 
   void print() {
