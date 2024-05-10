@@ -102,9 +102,9 @@ public class Splay<K extends Comparable<K>, V> {
       return spaces + "None";
 
     String res = "";
-    res += (spaces + "Element: " + curr);
-    res += (spaces + "Left: " + print(curr.left, depth + 1));
-    res += (spaces + "Right: " + print(curr.right, depth + 1));
+    res += (spaces + "E: " + curr);
+    res += (spaces + "L: " + print(curr.left, depth + 1));
+    res += (spaces + "R: " + print(curr.right, depth + 1));
 
     return res;
   }
