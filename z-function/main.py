@@ -1,4 +1,5 @@
 # An algorithm mainly used for finding the longest prefix starting at index i that is also a prefix of the entire string
+# Can also be used for pattern matching
 
 
 def pattern_matching(text, pattern):
@@ -43,8 +44,10 @@ def z_fn(text):
 
 "abc$xbcabzabc"
 
-
 pattern = "abc"
 text = "xabcabzabc"
 
-print(pattern_matching(text, pattern))
+text = "aabxaabxcaabxaabxay"
+print(z_fn(text))
+
+# print(pattern_matching(text, pattern))
