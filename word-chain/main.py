@@ -89,5 +89,5 @@ while True:
 
     print(" -> ".join(sol[::-1]))
 
-    if input("Another one (Y/N): ") != "Y":
+    if input("Another one (Y/n): ") == "n":
         break
