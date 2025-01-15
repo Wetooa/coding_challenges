@@ -56,38 +56,37 @@ while True:
 
     if start_word not in all_words[N] or end_word not in all_words[N]:
         print("Words not in the dictionary")
-        exit()
+    else:
+        q = collections.deque([start_word])
+        v = {start_word: ""}
 
-    q = collections.deque([start_word])
-    v = {start_word: ""}
+        while q:
+            word = q.popleft()
 
-    while q:
-        word = q.popleft()
+            if word == end_word:
+                break
 
-        if word == end_word:
-            break
+            for i in range(N):
+                a_word = word[:i] + "*" + word[i + 1 :]
+                for nex_word in a_words[a_word]:
+                    if nex_word not in v:
+                        v[nex_word] = word
+                        q.append(nex_word)
 
-        for i in range(N):
-            a_word = word[:i] + "*" + word[i + 1 :]
-            for nex_word in a_words[a_word]:
-                if nex_word not in v:
-                    v[nex_word] = word
-                    q.append(nex_word)
+        if end_word not in v:
+            print("No solution found")
+            exit()
 
-    if end_word not in v:
-        print("No solution found")
-        exit()
+        sol = []
+        curr_word = end_word
 
-    sol = []
-    curr_word = end_word
+        while curr_word != start_word:
+            sol.append(curr_word)
+            curr_word = v[curr_word]
 
-    while curr_word != start_word:
         sol.append(curr_word)
-        curr_word = v[curr_word]
 
-    sol.append(curr_word)
-
-    print(" -> ".join(sol[::-1]))
+        print(" -> ".join(sol[::-1]))
 
     if input("Another one (Y/n): ") == "n":
         break
