@@ -44,49 +44,54 @@ if DEBUG:
         print(f"Length {word_length}: {len(words)} words")
 
 
-while True:
-    start_word = input("Input start word: ")
-    end_word = input("Input end word: ")
-
+def solve(start_word, end_word):
     if len(start_word) != len(end_word):
         print("Words must have the same length")
-        exit()
+        return
 
     N = len(start_word)
 
     if start_word not in all_words[N] or end_word not in all_words[N]:
         print("Words not in the dictionary")
-    else:
-        q = collections.deque([start_word])
-        v = {start_word: ""}
+        return
 
-        while q:
-            word = q.popleft()
+    q = collections.deque([start_word])
+    v = {start_word: ""}
 
-            if word == end_word:
-                break
+    while q:
+        word = q.popleft()
 
-            for i in range(N):
-                a_word = word[:i] + "*" + word[i + 1 :]
-                for nex_word in a_words[a_word]:
-                    if nex_word not in v:
-                        v[nex_word] = word
-                        q.append(nex_word)
+        if word == end_word:
+            break
 
-        if end_word not in v:
-            print("No solution found")
-            exit()
+        for i in range(N):
+            a_word = word[:i] + "*" + word[i + 1 :]
+            for nex_word in a_words[a_word]:
+                if nex_word not in v:
+                    v[nex_word] = word
+                    q.append(nex_word)
 
-        sol = []
-        curr_word = end_word
+    if end_word not in v:
+        print("No solution found")
+        return
 
-        while curr_word != start_word:
-            sol.append(curr_word)
-            curr_word = v[curr_word]
+    sol = []
+    curr_word = end_word
 
+    while curr_word != start_word:
         sol.append(curr_word)
+        curr_word = v[curr_word]
 
-        print(" -> ".join(sol[::-1]))
+    sol.append(curr_word)
+
+    print(" -> ".join(sol[::-1]))
+
+
+while True:
+    start_word = input("Input start word: ")
+    end_word = input("Input end word: ")
+
+    solve(start_word, end_word)
 
     if input("Another one (Y/n): ") == "n":
         break
