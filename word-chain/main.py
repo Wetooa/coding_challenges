@@ -1,21 +1,6 @@
 import collections
 import string
 
-FILE_NAME = "./english-words/words_alpha.txt"
-
-alphabet = string.ascii_lowercase
-file_content = open(FILE_NAME).read().strip()
-file_words = file_content.split("\n")
-all_words = collections.defaultdict(list)
-
-for word in file_words:
-    all_words[len(word)].append(word)
-
-print("Total words in the dictionary:", len(file_words))
-
-for word_length, words in sorted(all_words.items()):
-    print(f"Length {word_length}: {len(words)} words")
-
 
 print(
     """
@@ -29,6 +14,34 @@ print(
 ===================================================================
 """
 )
+
+
+FILE_NAME = "./english-words/words_alpha.txt"
+DEBUG = True
+
+alphabet = string.ascii_lowercase
+file_content = open(FILE_NAME).read().strip()
+file_words = file_content.split("\n")
+
+all_words = collections.defaultdict(list)
+a_words = collections.defaultdict(list)
+
+for word in file_words:
+    all_words[len(word)].append(word)
+
+
+for length, words in all_words.items():
+    for word in words:
+        l_word = list(word)
+        for i in range(length):
+            l_word[i] = "*"
+            a_words["".join(l_word)].append(word)
+            l_word[i] = word[i]
+
+if DEBUG:
+    print("Total words in the dictionary:", len(file_words))
+    for word_length, words in sorted(all_words.items()):
+        print(f"Length {word_length}: {len(words)} words")
 
 start_word = input("Input start word: ")
 end_word = input("Input end word: ")
@@ -55,15 +68,12 @@ while q:
         break
 
     for i in range(N):
-        for char in alphabet:
-            if char == word[i]:
-                continue
+        a_word = word[:i] + "*" + word[i + 1 :]
+        for nex_word in a_words[a_word]:
+            if nex_word not in v:
+                v[nex_word] = word
+                q.append(nex_word)
 
-            new_word = word[:i] + char + word[i + 1 :]
-
-            if new_word not in v and new_word in all_words[N]:
-                v[new_word] = word
-                q.append(new_word)
 
 if end_word not in v:
     print("No solution found")
