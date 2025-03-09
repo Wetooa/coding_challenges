@@ -1,3 +1,6 @@
+import random
+
+
 class Node:
     def __init__(self, data, left_index, right_index, left=None, right=None):
         self.data = data
@@ -23,13 +26,7 @@ class SegmentTree:
             x = create(l, mid)
             y = create(mid + 1, r)
 
-            return Node(
-                self.func(x.data if x else default, y.data if y else default),
-                l,
-                r,
-                x,
-                y,
-            )
+            return Node(self.func(x.data, y.data), l, r, x, y)
 
         self.root = create(0, len(arr) - 1)
 
@@ -52,8 +49,6 @@ class SegmentTree:
     def update(self, index, value):
 
         def adjust(tree):
-            if not tree:
-                return
             x, y = tree.left_index, tree.right_index
             if x == y:
                 if index == x:
@@ -62,10 +57,7 @@ class SegmentTree:
 
             left = adjust(tree.left)
             right = adjust(tree.right)
-            tree.data = self.func(
-                left.data if left else self.default,
-                right.data if right else self.default,
-            )
+            tree.data = self.func(left.data, right.data)
             return tree
 
         return adjust(self.root)
@@ -83,10 +75,10 @@ class SegmentTree:
         print_tree(self.root, 0)
 
 
-arr = [1, 2, 3, 5, 3, 6, 7, 8, 3, 2, 1, 3, 5, 6, 3, 5]
-func = min
+arr = [random.randint(0, 1000) for _ in range(100)]
+func = lambda x, y: x + y
 
-T = SegmentTree(arr, func, int(1e9))
+T = SegmentTree(arr, func, 0)
 
 
 x = 6
@@ -104,4 +96,4 @@ print(min(arr[x : y + 1]))
 
 for i in range(len(arr)):
     for j in range(i, len(arr)):
-        assert min(arr[i : j + 1]) == T.find(i, j)
+        assert sum(arr[i : j + 1]) == T.find(i, j)
