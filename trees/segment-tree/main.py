@@ -17,7 +17,7 @@ class SegmentTree:
             if l == r:
                 return Node(arr[l], l, r)
             if l > r:
-                return None
+                return Node(default, l, r)
 
             mid = (l + r) // 2
             x = create(l, mid)
@@ -100,3 +100,8 @@ T.update(5, 0)
 
 print(T.find(x, y))
 print(min(arr[x : y + 1]))
+
+
+for i in range(len(arr)):
+    for j in range(i, len(arr)):
+        assert min(arr[i : j + 1]) == T.find(i, j)
