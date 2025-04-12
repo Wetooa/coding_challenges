@@ -18,7 +18,7 @@ class SegmentTree:
 
         def create(l, r):
             if l == r:
-                return Node(arr[l], l, r)
+                return Node(arr[l], l, r, Node(default, 1, 0), Node(default, 1, 0))
             if l > r:
                 return Node(default, l, r)
 
@@ -32,16 +32,23 @@ class SegmentTree:
 
     def find(self, l, r):
 
-        def get(tree):
-            if not tree:
+        def get(root):
+            x, y = root.left_index, root.right_index
+
+            if x > y:
                 return self.default
-
-            x, y = tree.left_index, tree.right_index
             if l <= x <= y <= r:
-                return tree.data
+                return root.data
 
-            left = get(tree.left)
-            right = get(tree.right)
+            mid = (x + y) // 2
+            left = right = self.default
+
+            # NOTE: WHAT A GREAT FOOL YOU ARE ADRIAN
+            if max(l, x) <= min(r, mid):
+                left = get(root.left)
+            if max(l, mid + 1) <= min(r, y):
+                right = get(root.right)
+
             return self.func(left, right)
 
         return get(self.root)
@@ -55,9 +62,13 @@ class SegmentTree:
                     tree.data = value
                 return tree
 
-            left = adjust(tree.left)
-            right = adjust(tree.right)
-            tree.data = self.func(left.data, right.data)
+            mid = (x + y) // 2
+            if index <= mid:
+                adjust(tree.left)
+            else:
+                adjust(tree.right)
+
+            tree.data = self.func(tree.left.data, tree.right.data)
             return tree
 
         return adjust(self.root)
@@ -85,13 +96,13 @@ x = 6
 y = 10
 
 print(T.find(x, y))
-print(min(arr[x : y + 1]))
+print(sum(arr[x : y + 1]))
 
 arr[5] = 0
 T.update(5, 0)
 
 print(T.find(x, y))
-print(min(arr[x : y + 1]))
+print(sum(arr[x : y + 1]))
 
 
 for i in range(len(arr)):
