@@ -5,6 +5,14 @@ FILE_NAME = "./english-words/words_alpha.txt"
 W = generate_words_by_length(FILE_NAME)
 
 
+"""
+SHIT implementation
+
+
+use repeating.py for better results and cleaner code
+"""
+
+
 def display_word_square(word_square):
     for word in word_square:
         print(f"|{word}|")
