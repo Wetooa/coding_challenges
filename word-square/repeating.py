@@ -1,5 +1,6 @@
 from multiprocessing import Process
 from string import ascii_lowercase
+
 from generate import generate_words_by_length
 
 FILE_NAME = "./english-words/words_alpha.txt"
@@ -47,30 +48,44 @@ def generate_word_square(N, M):
     brute_force(0, 0)
 
 
-W.describe()
-
-
 # N = int(input("Enter N: "))
 # M = int(input("Enter M: "))
 # generate_word_square(N, M)
 
 
+def brute_force_square_with_tl(N, M):
+    print(f"Generating word square of size {N}x{M}")
+    process = Process(target=generate_word_square, args=(N, M))
+    process.start()
+    process.join(timeout=20)
+
+    if process.is_alive():
+        print(f"Process for {N}x{M} is still running, terminating it.")
+        process.terminate()
+        process.join()
+    else:
+        print("Finished within time.")
+    print()
+
+
 def compute_for_all():
+    from time import sleep
 
-    for i in range(3, 15):
-        for j in range(3, 15):
-            print(f"Generating word square of size {i}x{j}")
-            process = Process(target=generate_word_square, args=(i, j))
-            process.start()
-            process.join(timeout=10)
+    jobs = []
+    R, C = 3, 10
 
-            if process.is_alive():
-                print(f"Process for {i}x{j} is still running, terminating it.")
-                process.terminate()
-                process.join()
-            else:
-                print("Finished within time.")
-            print()
+    for i in range(R, C):
+        for j in range(R, C):
+            p = Process(target=brute_force_square_with_tl, args=(i, j))
+            p.start()
+            jobs.append(p)
+            sleep(0.05)  # slight delay to avoid spawn congestion
+
+    """
+    Slight learning, python Process is already gonna run in parallel, so no need to use Pool
+    """
+    for job in jobs:
+        job.join()
 
 
 compute_for_all()
