@@ -1,0 +1,1 @@
+/home/wetooa/Documents/code/coding_challenges/word-square/word-square-rust/target/debug/libword_square_rust.rlib: /home/wetooa/Documents/code/coding_challenges/word-square/word-square-rust/src/lib.rs /home/wetooa/Documents/code/coding_challenges/word-square/word-square-rust/src/trie.rs
