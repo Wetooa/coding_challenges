@@ -1,29 +1,39 @@
-use std::collections::HashMap;
-
-#[allow(dead_code)]
-#[derive(Default)]
+#[derive(Clone)]
 pub struct TrieNode {
-    pub children: HashMap<char, TrieNode>,
+    pub children: Vec<Option<Box<TrieNode>>>,
     pub is_end_of_word: bool,
 }
 
-#[derive(Default)]
+impl TrieNode {
+    pub fn new() -> Self {
+        Self {
+            children: vec![None; 26],
+            is_end_of_word: false,
+        }
+    }
+}
+
 #[allow(dead_code)]
 pub struct Trie {
     pub root: TrieNode,
 }
 
-#[allow(dead_code)]
 impl Trie {
     pub fn new() -> Self {
-        Self::default()
+        Self {
+            root: TrieNode::new(),
+        }
+    }
+
+    pub fn char_index(c: char) -> usize {
+        (c as u32 - 97) as usize
     }
 
     pub fn insert(&mut self, word: &str) {
         let mut node = &mut self.root;
-
         for c in word.chars() {
-            node = node.children.entry(c).or_default();
+            let index = Self::char_index(c);
+            node = node.children[index].get_or_insert_with(|| Box::new(TrieNode::new()));
         }
         node.is_end_of_word = true;
     }
@@ -32,7 +42,8 @@ impl Trie {
         let mut node = &self.root;
 
         for c in word.chars() {
-            match node.children.get(&c) {
+            let index = Self::char_index(c);
+            match &node.children[index] {
                 Some(child) => node = child,
                 None => return false,
             }

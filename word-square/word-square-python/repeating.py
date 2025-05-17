@@ -16,10 +16,11 @@ def display_word_square(word_square):
 
 
 def generate_word_square(N, M):
-    wt = W.get_trie(M)
+    row_t = W.get_trie(M)
+    col_t = W.get_trie(N)
 
-    tr = [wt.root for _ in range(N)]
-    tc = [wt.root for _ in range(M)]
+    tr = [row_t.root for _ in range(N)]
+    tc = [col_t.root for _ in range(M)]
     ws = [[" "] * M for _ in range(N)]
 
     def brute_force(i, j):
@@ -88,4 +89,4 @@ def compute_for_all():
 
 # compute_for_all()
 
-brute_force_square_with_tl(7, 7)
+brute_force_square_with_tl(6, 7)

@@ -1,6 +1,6 @@
 pub mod trie;
 
-use rayon::prelude::*;
+// use rayon::prelude::*;
 use std::env;
 use std::{
     fs::File,
@@ -46,12 +46,13 @@ fn build_trie(size: usize) -> Result<Trie, Box<dyn std::error::Error>> {
     Ok(trie)
 }
 
-// FIX: for somre reason its slower than python :p
+// FIX: for some reason its slower than python :p
 fn solve_word_square(row_trie: &Trie, col_trie: &Trie, n: usize, m: usize) {
     println!("Solving word square of size {n}x{m}");
     let row_root = &row_trie.root;
     let col_root = &col_trie.root;
 
+    let mut res = vec![vec![' '; m]; n];
     let mut rows = vec![row_root; n];
     let mut cols = vec![col_root; m];
 
@@ -63,7 +64,7 @@ fn solve_word_square(row_trie: &Trie, col_trie: &Trie, n: usize, m: usize) {
         res: &mut Vec<Vec<char>>,
     ) -> bool {
         if r == rows.len() {
-            let border = "-".repeat(rows.len() + 2);
+            let border = "-".repeat(cols.len() + 2);
             println!("{border}");
             for row in res.iter() {
                 let line: String = row.iter().collect();
@@ -73,21 +74,25 @@ fn solve_word_square(row_trie: &Trie, col_trie: &Trie, n: usize, m: usize) {
             return true;
         }
 
-        for ch in 'a'..='z' {
-            match (rows[r].children.get(&ch), cols[c].children.get(&ch)) {
-                (Some(next_row), Some(next_col)) => {
-                    let prev_row = rows[r];
-                    let prev_col = cols[c];
+        let prev_row = rows[r];
+        let prev_col = cols[c];
 
+        for ch in 'a'..='z' {
+            let index = Trie::char_index(ch);
+
+            match (&rows[r].children[index], &cols[c].children[index]) {
+                (Some(next_row), Some(next_col)) => {
                     res[r][c] = ch;
                     rows[r] = next_row;
                     cols[c] = next_col;
 
-                    if if cols.len() - 1 == c {
-                        solve(r + 1, 0, rows, cols, res)
-                    } else {
-                        solve(r, c + 1, rows, cols, res)
-                    } {
+                    if solve(
+                        r + (if c + 1 == cols.len() { 1 } else { 0 }),
+                        (c + 1) % cols.len(),
+                        rows,
+                        cols,
+                        res,
+                    ) {
                         return true;
                     }
 
@@ -102,7 +107,7 @@ fn solve_word_square(row_trie: &Trie, col_trie: &Trie, n: usize, m: usize) {
         false
     }
 
-    solve(0, 0, &mut rows, &mut cols, &mut vec![vec![' '; m]; n]);
+    solve(0, 0, &mut rows, &mut cols, &mut res);
 
     // NOTE: Parallelizing ! ! !
     // FIX: doesnt stop after 1 solve lol
